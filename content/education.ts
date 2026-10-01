@@ -23,13 +23,14 @@ export const education = {
 
 /**
  * Certifications, newest first. `featured` ones are shown up front; the rest sit behind "Show all".
- * Links are the verification pages printed on each certificate, or the Drive copies from the resume.
+ * Links are the verification pages printed on each certificate, or Drive copies. A Drive link only works if the file
+ * is shared as "Anyone with the link"; private ones were removed on 2026-10-02 (set href to "" to hide a button).
  * `image` (optional) is a path in public/ without extension: <path>.jpg is the full scan, <path>-thumb.jpg the preview.
  */
 export const certifications = [
-  { name: "AI & Machine Learning, Grade A+", issuer: "Atos Prayas Foundation / ICT Academy", date: "Oct 2025", featured: true, image: "/images/certs/ai-ml-atos", href: "https://drive.google.com/file/d/1qDVEq7UBdfS0khmujmivKS1xa7Fldp-K/view?usp=drive_link" },
+  { name: "AI & Machine Learning, Grade A+", issuer: "Atos Prayas Foundation / ICT Academy", date: "Oct 2025", featured: true, image: "/images/certs/ai-ml-atos", href: "" },
   { name: "SQL and Relational Databases 101", issuer: "IBM Developer Skills Network", date: "Aug 2025", featured: false, href: "https://courses.srmuh.skillsnetwork.site/certificates/f5f28ee7b14e480ab4ac63fe4ff5388e" },
-  { name: "Deep Learning for Developers", issuer: "Infosys Springboard", date: "May 2025", featured: true, image: "/images/certs/infosys-deep-learning", href: "https://drive.google.com/file/d/1K_Alfb-Ssn3wzsr4NuKzOpqzKKF__Q0J/view?usp=drive_link" },
+  { name: "Deep Learning for Developers", issuer: "Infosys Springboard", date: "May 2025", featured: true, image: "/images/certs/infosys-deep-learning", href: "" },
   { name: "Quantum Enigmas", issuer: "IBM SkillsBuild", date: "Mar 2025", featured: false, href: "https://www.credly.com/go/sj1roy0R" },
   { name: "Data Science Job Simulation", issuer: "Forage / BCG X", date: "Feb 2025", featured: true, image: "/images/certs/bcg-data-science", href: "https://drive.google.com/file/d/1nWpU_rYiuRvjt0CB-fB_d2lDxiiFo3Hd/view?usp=drive_link" },
   { name: "Introduction to Big Data, Hadoop and the Ecosystems", issuer: "IBM Developer Skills Network", date: "Dec 2024", featured: false, href: "https://courses.srmuh.skillsnetwork.site/certificates/10b7db17620442c4a309753de3d06567" },
@@ -43,8 +44,8 @@ export const certifications = [
 ];
 
 export const languages = [
-  { name: "English", level: "IELTS Academic 7.5 (CEFR C1)", href: "https://drive.google.com/file/d/1lzHfuA6YMLgZDau2bAP-lvZJW-ORMc7i/view?usp=drive_link" },
-  { name: "German", level: "A2", href: "https://drive.google.com/file/d/1jpWmBydf4rYY5ubaDaStAt1NClRsO2k5/view?usp=drive_link" },
+  { name: "English", level: "IELTS Academic 7.5 (CEFR C1)", href: "" },
+  { name: "German", level: "A2", href: "" },
   { name: "Hindi", level: "Native", href: "" },
 ];
 
@@ -53,5 +54,5 @@ export const leadership = {
   role: "PR Head and Core Team Member",
   period: "Mar 2024 – Present",
   detail: "Volunteer since August 2022, heading the Public Relations department since March 2024. Lead outreach and communications for the volunteer team.",
-  href: "https://drive.google.com/file/d/1VzeGJXzX-KfiSGu_KJgIlkAHYNrApLzR/view?usp=drive_link",
+  href: "",
 };
