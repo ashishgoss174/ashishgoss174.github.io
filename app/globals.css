@@ -215,31 +215,14 @@ details[open] .chev { transform: rotate(90deg); }
 }
 .js [data-reveal].is-visible { opacity: 1; transform: none; filter: none; }
 
-/* ---------- Hero graph ---------- */
-.graph-edge {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: draw 1.6s cubic-bezier(0.3, 0.6, 0.2, 1) forwards;
-  animation-delay: var(--d, 0s);
-  transition: stroke 0.25s ease, stroke-width 0.25s ease, opacity 0.25s ease;
+/* ---------- Section numbers and alternating backgrounds follow the rendered order ---------- */
+#main { counter-reset: sec; }
+#main > .section { counter-increment: sec; }
+.secnum::before { content: counter(sec, decimal-leading-zero); }
+#main > .section:nth-child(even of .section):not(#contact) {
+  background-color: rgb(var(--surface) / 0.3);
+  border-block: 1px solid rgb(var(--line) / 0.6);
 }
-.graph-node { animation: pop 0.5s ease-out both; animation-delay: var(--d, 0s); transform-box: fill-box; transform-origin: center; }
-.graph-node circle, .graph-node text { transition: opacity 0.25s ease, fill 0.25s ease; }
-.graph-pulse { animation: pulse 4s ease-in-out infinite; animation-delay: var(--d, 0s); transform-box: fill-box; transform-origin: center; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
-@keyframes pulse { 0%, 100% { opacity: 0.25; transform: scale(0.9); } 50% { opacity: 0.9; transform: scale(1.25); } }
-
-/* ---------- Terminal ---------- */
-.js .term-body:not([data-ready]) { visibility: hidden; }
-.caret { display: inline-block; width: 0.55em; height: 1.1em; vertical-align: -0.18em; background: rgb(var(--accent)); animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-
-/* ---------- Tech marquee ---------- */
-.marquee { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.marquee-track { display: flex; width: max-content; animation: marquee 50s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
-@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- Live indicator ---------- */
 .live-dot { position: relative; display: inline-block; width: 0.5rem; height: 0.5rem; border-radius: 9999px; background: rgb(var(--mint)); }
@@ -329,9 +312,8 @@ dialog.project-dialog[open] { animation: dialog-in 0.25s cubic-bezier(0.2, 0.8, 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
-  .graph-edge { animation: none; stroke-dashoffset: 0; }
-  .graph-node, .graph-pulse, dialog.project-dialog[open], .palette, .palette-backdrop, .toast { animation: none; }
-  .aurora span, .grad-text, .marquee-track, .caret, .live-dot::after { animation: none; }
+  dialog.project-dialog[open], .palette, .palette-backdrop, .toast { animation: none; }
+  .aurora span, .grad-text, .live-dot::after { animation: none; }
   .orbit, .orbit .sat > span > span, .portrait-glow, .timer-bar, .blob, .scan-line, .vision-in { animation: none; }
   .portrait-front { transform: translate(-50%, -50%); transition: none; }
   .portrait-back { transform: none; transition: none; }

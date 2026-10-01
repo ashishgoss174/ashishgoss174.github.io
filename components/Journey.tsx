@@ -37,8 +37,8 @@ export default function Journey() {
       id="journey"
       eyebrow="story mode"
       hue="grape"
-      title="The journey so far"
-      lede="From a first line of code in school to AI infrastructure. Each chapter is a new level: what I did, what it taught me, and what I unlocked. Scroll through it."
+      title="From data and models to dependable AI systems"
+      lede="Eight chapters, from a first line of code to AI infrastructure. Each one says what I did, what it taught me and what I unlocked."
      
     >
       {/* the skill tree, at a glance */}

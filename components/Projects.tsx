@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { notes } from "@/content/notes";
 import { projects } from "@/content/projects";
 import { achieve } from "@/lib/achievements";
 import { hue } from "@/lib/hue";
@@ -9,9 +11,14 @@ import FlowStrip from "./FlowStrip";
 import { CloseIcon, ExternalIcon, GitHubIcon } from "./Icons";
 
 function ProjectLinks({ p }: { p: Project }) {
-  if (p.links.length === 0) return <span className="font-mono text-[0.8125rem] text-faint">// code not public yet</span>;
+  const note = notes.find((n) => n.about === p.id);
+  const write = note && (
+    <Link href={`/notes/${note.slug}/`} className="btn btn-quiet py-2 text-[0.875rem]">Write-up</Link>
+  );
+  if (p.links.length === 0) return <>{write}<span className="font-mono text-[0.8125rem] text-faint">// code not public yet</span></>;
   return (
     <>
+      {write}
       {p.links.map((l) => (
         <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn-quiet py-2 text-[0.875rem]"
           aria-label={`${l.label} for ${p.name} (opens in new tab)`}>
@@ -125,7 +132,8 @@ export default function Projects() {
   }, [open]);
 
   const featured = projects.filter((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
+  const rest = projects.filter((p) => !p.featured && !p.compact);
+  const small = projects.filter((p) => p.compact);
   const openProject = (p: Project) => {
     opener.current = document.activeElement as HTMLElement;
     setOpen(p);
@@ -137,9 +145,24 @@ export default function Projects() {
       <div className="grid gap-5 md:grid-cols-2">
         {featured.map((p, i) => <Card key={p.id} p={p} n={i} onOpen={() => openProject(p)} />)}
       </div>
-      <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-5 grid gap-5 md:grid-cols-2">
         {rest.map((p, i) => <Card key={p.id} p={p} n={featured.length + i} onOpen={() => openProject(p)} />)}
       </div>
+      {small.map((p, i) => (
+        <div key={p.id} id={`project-${p.id}`} data-reveal style={hue(p.hue)}
+          className="targetable card mt-5 flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <div className="min-w-0">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.1em] h-text">
+              {String(featured.length + rest.length + i + 1).padStart(2, "0")} · {p.category} · {p.context}
+            </p>
+            <p className="mt-1"><span className="font-semibold">{p.name}</span> <span className="text-muted">· {p.solution}</span></p>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
+            <button type="button" onClick={() => openProject(p)} className="btn btn-quiet py-1.5 text-[0.875rem]" aria-haspopup="dialog">Case study</button>
+            <ProjectLinks p={p} />
+          </div>
+        </div>
+      ))}
 
       <dialog
         ref={dialogRef}

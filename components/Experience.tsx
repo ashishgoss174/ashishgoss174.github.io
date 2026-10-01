@@ -7,6 +7,13 @@ import FlowList from "./FlowList";
 import { ChevronIcon } from "./Icons";
 import Section from "./Section";
 
+// Strongest claim, strongest colour: what you built vs. designed vs. explored
+const verbStyle: Record<string, string> = {
+  Built: "bg-mint/15 text-mint", Curated: "bg-mint/15 text-mint",
+  Designed: "bg-accent/15 text-accent", Analysed: "bg-accent/15 text-accent",
+  Explored: "bg-sun/15 text-sun", Researched: "bg-sun/15 text-sun",
+};
+
 export default function Experience() {
   return (
     <Section
@@ -14,7 +21,7 @@ export default function Experience() {
       eyebrow="where I've worked"
       hue="mint"
       title="Experience"
-      lede="Four AI and data internships, from medical imaging data to AI infrastructure. Open a role for the technical detail and architecture."
+      lede="Four AI and data internships, from medical imaging data to AI infrastructure. Each contribution says whether I built, designed or explored it."
     >
       <ol className="relative space-y-5">
         {experience.map((r, idx) => {
@@ -54,7 +61,10 @@ export default function Experience() {
                       <div key={h.title} className="flex max-w-prose gap-3">
                         <span className="mt-0.5 font-mono text-[0.75rem] h-text">{String(i + 1).padStart(2, "0")}</span>
                         <div>
-                          <h4 className="font-medium">{h.title}</h4>
+                          <h4 className="flex flex-wrap items-center gap-2 font-medium">
+                            {h.verb && <span className={`rounded px-1.5 py-0.5 font-mono text-[0.625rem] uppercase tracking-[0.1em] ${verbStyle[h.verb]}`}>{h.verb}</span>}
+                            {h.title}
+                          </h4>
                           <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-muted">{h.body}</p>
                         </div>
                       </div>

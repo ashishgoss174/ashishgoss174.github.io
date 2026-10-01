@@ -9,8 +9,8 @@ export default function Testimonials() {
       id="words"
       eyebrow="in their words"
       hue="rose"
-      title="What people I've worked with said"
-      lede="One line from each place I've worked, quoted as written in recommendation letters and certificates."
+      title="Selected recommendations"
+      lede="Quoted as written. Each card says whether it comes from a recommendation letter or a certificate."
     >
       {/* 3 + 2 on wide screens: the first row thirds, the second row halves, so every row is full */}
       <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-6">

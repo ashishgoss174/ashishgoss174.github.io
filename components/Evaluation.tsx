@@ -1,4 +1,5 @@
 import { results, testSet } from "@/lib/evaluation";
+import { asset } from "@/lib/paths";
 
 const pct = (v: number) => `${Math.round(v * 100)}%`;
 const metrics: { key: "hit1" | "hit3" | "mrr"; label: string; help: string; fmt: (v: number) => string }[] = [
@@ -27,7 +28,7 @@ export default function Evaluation() {
           <p className="font-mono text-[0.75rem] uppercase tracking-[0.12em] text-mint">Is it any good? I measured it</p>
           <h3 className="mt-1 text-[1.25rem] font-semibold tracking-[-0.01em]">Retrieval evaluation: {n} labelled questions, 3 rankers</h3>
         </div>
-        <p className="font-mono text-[0.75rem] text-faint">computed live from lib/evaluation.ts</p>
+        <a href={asset("/notes/evaluating-my-search-engine/")} className="font-mono text-[0.8125rem] text-mint hover:underline hover:underline-offset-4">Read the write-up →</a>
       </div>
 
       <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[1.1fr_0.9fr]">

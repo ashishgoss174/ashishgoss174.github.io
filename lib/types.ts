@@ -30,11 +30,15 @@ export interface Project {
   note?: string;
   links: LinkItem[];
   hue: Hue;
+  /** Shown as a small one-line card below the main grid */
+  compact?: boolean;
 }
 
 export interface Highlight {
   title: string;
   body: string;
+  /** What you personally did, shown as a badge: keep it honest */
+  verb?: "Built" | "Designed" | "Explored" | "Researched" | "Curated" | "Analysed";
 }
 
 export interface Role {

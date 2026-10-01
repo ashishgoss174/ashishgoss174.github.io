@@ -9,6 +9,22 @@ export const about = {
   ],
 };
 
+/**
+ * The research-oriented thread through the work. The question is from your statement of purpose.
+ * Each stop names what that experience taught about reliability, and links to the evidence.
+ */
+export const thread = {
+  question: "How can we build data and AI systems that work reliably in the conditions in which people actually use them?",
+  stops: [
+    { where: "Nocturne GmbH", theme: "Data quality", line: "Five inconsistent image sources had to agree before any model could learn from them.", href: "#exp-nocturne", hue: "rose" as const },
+    { where: "ADQVEST Capital", theme: "Validation", line: "Records are repaired or rejected before they reach the database, not after.", href: "#exp-adqvest", hue: "sun" as const },
+    { where: "CareCompanion", theme: "Grounding", line: "Answers come from retrieved clinical documents and cite them.", href: "#project-carecompanion", hue: "mint" as const },
+    { where: "Talk-to-Your-Database", theme: "Constrained generation", line: "A check in code, not the prompt, stops generated SQL from changing data.", href: "#project-talk-to-your-database", hue: "accent" as const },
+    { where: "FutureVerse", theme: "Structured knowledge", line: "Concepts with validity periods, and runs that can be reproduced.", href: "#exp-futureverse", hue: "grape" as const },
+  ],
+  next: "What's missing is the ability to show when and why these systems work. That's what I want to study next.",
+};
+
 export const progression = [
   { stage: "Data science", evidence: "Coursework in predictive analysis, data mining and big data analytics" },
   { stage: "Machine learning", evidence: "ML, deep learning and NLP; a CNN-based sign-language recogniser" },
@@ -66,13 +82,50 @@ export const interests = {
     { area: "Multimodal document understanding", where: "Invoice Extractor" },
     { area: "Data quality and validation", where: "ADQVEST Capital, Nocturne GmbH" },
   ],
+  /** Experience → question → academic direction. `builds` is what the search engine reads. */
   further: [
-    { area: "Reliable LLM systems", question: "How to make LLM pipelines reproducible and their outputs checkable.", builds: "Workflow versioning at FutureVerse" },
-    { area: "Knowledge-enhanced AI", question: "How structured knowledge such as ontologies can make AI systems more precise and explainable.", builds: "The FutureVerse knowledge graph" },
-    { area: "AI for healthcare", question: "How AI can support clinical decisions without asking clinicians to trust an answer they can't trace.", builds: "Nocturne and CareCompanion" },
-    { area: "Multimodal AI", question: "How models that read images and text together change document and vision pipelines.", builds: "Invoice Extractor, ASL recognition" },
-    { area: "Evaluating AI systems", question: "How to measure whether retrieval and generation are actually correct, not just fluent.", builds: "CareCompanion, Text-to-SQL" },
-    { area: "Data-centric AI", question: "How dataset curation and validation shape what a model can learn.", builds: "Nocturne dataset curation, ADQVEST validation" },
+    {
+      area: "Evaluating AI systems",
+      experience: "Judged CareCompanion's retrieval by reviewing relevance by hand; then measured this site's search against two baselines.",
+      question: "How do you show that retrieval and generation are actually correct, and better than a simpler system, not just fluent?",
+      direction: "Experimental design, statistical inference, model evaluation",
+      builds: "CareCompanion and the retrieval evaluation on this site",
+    },
+    {
+      area: "Reliable LLM systems",
+      experience: "Content-hash versioning and resumable workflows in FV Orchestration.",
+      question: "How can LLM pipelines stay reproducible and testable when inputs change and intermediate steps fail?",
+      direction: "AI systems, reliability, evaluation",
+      builds: "Workflow versioning at FutureVerse",
+    },
+    {
+      area: "Knowledge-enhanced AI",
+      experience: "A temporal RDF knowledge graph with an ontology registry and validity periods.",
+      question: "How can structured knowledge make retrieval and reasoning more precise and explainable?",
+      direction: "Knowledge representation, semantic systems, graph-based learning",
+      builds: "The FutureVerse knowledge graph",
+    },
+    {
+      area: "AI for healthcare",
+      experience: "Retinal imaging data at Nocturne; source-cited answers over clinical documents in CareCompanion.",
+      question: "How can AI support clinical decisions without asking clinicians to trust an answer they can't trace?",
+      direction: "Medical information retrieval, clinical decision support",
+      builds: "Nocturne and CareCompanion",
+    },
+    {
+      area: "Data-centric AI",
+      experience: "Standardising five inconsistent image sources; validation that repairs or rejects records before storage.",
+      question: "How do dataset curation and validation shape what a model can learn?",
+      direction: "Data quality, dataset design, probabilistic modelling",
+      builds: "Nocturne dataset curation, ADQVEST validation",
+    },
+    {
+      area: "Multimodal AI",
+      experience: "Invoice Q&A with a multimodal model and no OCR step; landmark-based sign recognition.",
+      question: "How do models that read images and text together change document and vision pipelines?",
+      direction: "Multimodal learning, document understanding",
+      builds: "Invoice Extractor, ASL recognition",
+    },
   ],
 };
 

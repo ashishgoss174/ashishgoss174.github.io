@@ -13,9 +13,11 @@ import Journey from "@/components/Journey";
 import ModelsToSystems from "@/components/ModelsToSystems";
 import Navbar from "@/components/Navbar";
 import Notes from "@/components/Notes";
-import Part from "@/components/Part";
 import Numbers from "@/components/Numbers";
 import Projects from "@/components/Projects";
+import SectionStack from "@/components/SectionStack";
+import Thread from "@/components/Thread";
+import Decisions from "@/components/Decisions";
 import RecruiterMode from "@/components/RecruiterMode";
 import Reveal from "@/components/Reveal";
 import Section from "@/components/Section";
@@ -47,35 +49,39 @@ export default function Page() {
       <Navbar name={site.name} />
       <main id="main">
         <Hero />
-
-        <Part id="who" />
-        <About />
-        <Numbers />
-
-        <Part id="story" />
-        <Journey />
-        <Experience />
-        <Testimonials />
-
-        <Part id="work" />
-        <Section id="projects" eyebrow="things I built" hue="accent" title="Featured projects" lede="Each case study covers the problem, the architecture, the decisions that mattered and where the project stands now.">
-          <Projects />
-        </Section>
-        <Section id="systems" eyebrow="under the hood" hue="accent" title="Systems I've built" lede="Four architectures from my projects and internships, broken into the stages data passes through. Press run and watch the data move, or select any stage for the detail.">
-          <SystemExplorer />
-        </Section>
-        <DataScience />
-        <AskPortfolio />
-        <ModelsToSystems />
-
-        <Part id="toolkit" />
-        <Section id="skills" eyebrow="the toolbox" hue="grape" title="Technical expertise" lede="Grouped by domain, not scored. Where a skill was used in a project or role on this page, it links there.">
-          <Skills />
-        </Section>
-        <Education />
-        <Interests />
-        <Notes />
-        <Contact />
+        <SectionStack
+          sections={{
+            about: <About />,
+            numbers: <Numbers />,
+            thread: <Thread />,
+            journey: <Journey />,
+            experience: <Experience />,
+            projects: (
+              <Section id="projects" eyebrow="things I built" hue="accent" title="Featured projects" lede="Three flagship pieces of work, then two that show breadth. Each case study covers the problem, the architecture, the decisions that mattered and where it stands now.">
+                <Projects />
+              </Section>
+            ),
+            decisions: <Decisions />,
+            systems: (
+              <Section id="systems" eyebrow="under the hood" hue="accent" title="Systems I've built" lede="Four architectures from my projects and internships, broken into the stages data passes through. Press run and watch the data move, or select any stage for the detail.">
+                <SystemExplorer />
+              </Section>
+            ),
+            "models-to-systems": <ModelsToSystems />,
+            "data-science": <DataScience />,
+            ask: <AskPortfolio />,
+            interests: <Interests />,
+            notes: <Notes />,
+            words: <Testimonials />,
+            education: <Education />,
+            skills: (
+              <Section id="skills" eyebrow="the toolbox" hue="grape" title="Tech stack" lede="Only what I've used in a role or project on this site. Select a skill to see where.">
+                <Skills />
+              </Section>
+            ),
+            contact: <Contact />,
+          }}
+        />
       </main>
       <Footer />
       <Reveal />

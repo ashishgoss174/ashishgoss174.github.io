@@ -1,16 +1,11 @@
-import { experience } from "@/content/experience";
-import { projects } from "@/content/projects";
 import { hero, site } from "@/content/site";
 import { asset } from "@/lib/paths";
-import HeroGraph from "./HeroGraph";
-import { CountUp, RotatingWord, Spotlight, Terminal } from "./HeroBits";
+import { CountUp, Spotlight } from "./HeroBits";
 import { DownloadIcon, GitHubIcon, LinkedInIcon } from "./Icons";
 import Portrait from "./Portrait";
+import ViewSwitch from "./ViewSwitch";
 
 const statHues = ["accent", "grape", "rose", "mint"] as const;
-
-// Every technology used somewhere on the site, for the marquee
-const tech = Array.from(new Set([...experience.flatMap((r) => r.stack), ...projects.flatMap((p) => p.stack)]));
 
 export default function Hero() {
   return (
@@ -19,7 +14,7 @@ export default function Hero() {
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <Spotlight />
 
-      <div className="container-page relative grid items-center gap-12 pb-12 pt-10 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pb-16">
+      <div className="container-page relative grid items-center gap-12 pb-16 pt-10 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pb-20">
         <div>
           {/* status pill */}
           <a href="#contact" className="group mb-7 inline-flex max-w-full flex-wrap items-center overflow-hidden rounded-full border border-line-strong/70 bg-surface/70 text-[0.8125rem] shadow-[0_8px_30px_-12px_rgb(var(--mint)/0.5)] backdrop-blur transition-colors hover:border-mint/60">
@@ -37,17 +32,21 @@ export default function Hero() {
           <h1 className="text-[2.9rem] font-semibold leading-[1] tracking-[-0.035em] sm:text-[4.25rem] lg:text-[4.75rem]">
             {site.name}
           </h1>
-          <p className="mt-3 font-mono text-[0.9375rem] text-muted sm:text-[1rem]">
+          <p className="mt-3 font-mono text-[0.9375rem] sm:text-[1rem]">
             <span className="text-accent">AI Engineer</span> <span className="text-faint">&amp;</span> <span className="text-mint">Data Scientist</span>
           </p>
-          <p className="mt-5 text-[1.375rem] font-medium leading-snug text-ink/90 sm:text-[1.75rem]">
-            I build <RotatingWord words={hero.rotating} />
+          <p className="mt-6 max-w-[34rem] text-[1.5rem] font-medium leading-snug tracking-[-0.01em] text-ink sm:text-[1.875rem]">
+            {site.thesis.lead} <span className="grad-text">{site.thesis.highlight}</span>
           </p>
+          <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[0.8125rem] text-muted" aria-label="Focus areas">
+            {hero.focus.map((f, i) => (
+              <li key={f} className="flex items-center gap-3">{i > 0 && <span aria-hidden="true" className="text-faint">·</span>}{f}</li>
+            ))}
+          </ul>
           <p className="mt-5 max-w-[36rem] text-[1.0625rem] leading-relaxed text-muted">{site.statement}</p>
 
           <div className="mt-8 flex flex-wrap gap-2.5">
-            <a href="#journey" className="btn btn-primary">Start the journey ↓</a>
-            <a href="#projects" className="btn btn-quiet">View projects</a>
+            <a href="#projects" className="btn btn-primary">View my work ↓</a>
             {site.resume && (
               <a href={asset(site.resume)} download className="btn btn-quiet">
                 <DownloadIcon /> Resume
@@ -64,34 +63,12 @@ export default function Hero() {
               </a>
             )}
           </div>
+
+          <ViewSwitch />
         </div>
 
-        <div className="order-first lg:order-none">
+        <div className="order-first pb-10 lg:order-none lg:pb-0">
           <Portrait />
-        </div>
-      </div>
-
-      {/* terminal + live graph */}
-      <div className="container-page relative grid items-center gap-8 pb-14 lg:grid-cols-2">
-        <div>
-          <Terminal lines={hero.terminal} />
-          <div className="mt-6">
-            <p className="font-mono text-[0.75rem] uppercase tracking-[0.12em] text-faint">What I have built</p>
-            <ul className="mt-3 flex flex-wrap gap-1.5">
-              {hero.built.map((b, i) => (
-                <li key={b.label}>
-                  <a href={b.href} className="chip transition-all hover:-translate-y-0.5 hover:border-accent/60 hover:text-ink"
-                    style={{ ["--h" as string]: `var(--${statHues[i % 4]})` }}>
-                    <span aria-hidden="true" className="mr-1.5 h-1.5 w-1.5 rounded-full h-bg" />
-                    {b.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="hidden lg:block">
-          <HeroGraph />
         </div>
       </div>
 
@@ -110,13 +87,6 @@ export default function Hero() {
             </div>
           ))}
         </dl>
-        <div className="marquee border-t border-line/60 py-3" aria-hidden="true">
-          <div className="marquee-track gap-2">
-            {[...tech, ...tech].map((t, i) => (
-              <span key={i} className="chip mr-2 whitespace-nowrap">{t}</span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

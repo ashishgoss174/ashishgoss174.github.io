@@ -6,14 +6,15 @@ import { openPalette } from "./CommandPalette";
 import { openRecruiter } from "./RecruiterMode";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "./Icons";
 
-const links = [
-  { href: "#journey", label: "Journey" },
+const allLinks = [
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
-  { href: "#data-science", label: "Data science" },
-  { href: "#ask", label: "Ask" },
-  { href: "#skills", label: "Skills" },
-  { href: "#education", label: "Education" },
+  { href: "#journey", label: "Journey" },
+  { href: "#data-science", label: "How I work" },
+  { href: "#interests", label: "Research" },
+  { href: "#notes", label: "Writing" },
+  { href: "#education", label: "Academic" },
+  { href: "#skills", label: "Stack" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -23,6 +24,9 @@ export default function Navbar({ name }: { name: string }) {
   const [active, setActive] = useState("");
   const [mac, setMac] = useState(false);
   const bar = useRef<HTMLDivElement>(null);
+  // Links follow the current view: only sections that are on the page are listed
+  const [links, setLinks] = useState(allLinks);
+  const [layout, setLayout] = useState(0);
 
   useEffect(() => {
     setThemeState(currentTheme());
@@ -42,20 +46,27 @@ export default function Navbar({ name }: { name: string }) {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // Which section is on screen
-    const sections = links.map((l) => document.querySelector(l.href)).filter(Boolean) as Element[];
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`)),
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    sections.forEach((s) => io.observe(s));
+    const onView = () => requestAnimationFrame(() => setLayout((n) => n + 1));
+    window.addEventListener("layoutchange", onView);
 
     return () => {
       window.removeEventListener("themechange", onTheme);
       window.removeEventListener("scroll", onScroll);
-      io.disconnect();
+      window.removeEventListener("layoutchange", onView);
     };
   }, []);
+
+  // Which sections exist in this view, and which one is on screen
+  useEffect(() => {
+    const present = allLinks.filter((l) => document.querySelector(l.href));
+    setLinks(present);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`)),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    present.forEach((l) => io.observe(document.querySelector(l.href)!));
+    return () => io.disconnect();
+  }, [layout]);
 
   useEffect(() => {
     if (!open) return;

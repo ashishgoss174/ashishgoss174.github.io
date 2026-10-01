@@ -20,7 +20,8 @@ Everything you'd want to edit is plain data in `content/`. You shouldn't need to
 
 | File | What it controls |
 |---|---|
-| `content/sections.ts` | The page's four parts and the order of sections inside them. Section numbers and alternating backgrounds come from here; keep it in the same order as `app/page.tsx` |
+| `content/sections.ts` | The page order for each audience: Everyone, Recruiter and Academic (`?view=recruiter`, `?view=academic`). Section numbers and alternating backgrounds follow whatever order is shown |
+| `content/decisions.ts` | "Selected engineering decisions": decision + why, each linked to its case study |
 | `content/site.ts` | Name, headline, statement, email, GitHub, LinkedIn, resume path, photo; `hero` holds the rotating "I build…" phrases, terminal lines, chips and stat counters |
 | `content/datascience.ts` | The "How I work with data" notebook cells (step, pseudo-code, real evidence, links) |
 | `content/notes.ts` | Technical write-ups, each published at `/notes/<slug>/` and listed in the Notes section, the palette and the Ask search |
@@ -93,7 +94,8 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` once you have
 - IBM Plex Sans and IBM Plex Mono are self-hosted from npm, so there are no third-party font requests.
 - Architecture diagrams encode the kind of each stage by shape and colour: violet border for models, dashed pink for constraints and safety checks, amber underline for storage, thick cyan left edge for retrieval, green tint for outputs.
 - Interactive pieces: a typing terminal and rotating headline in the hero, a live graph (packets travel along the edges; hover to trace, click to jump to the work), a journey timeline whose rail fills as you scroll, cards with a cursor-following glow and tilt, a "Run pipeline" mode in Systems, a grep-style skill filter, and count-up stats.
-- **Ask my portfolio** (`lib/search.ts`): a BM25 retrieval engine over the site's own content, built in the browser. It quotes the best sentence and cites the source, and refuses when nothing scores above the threshold. Deep link: `/?ask=kafka#ask`.
+- **Audience views:** the hero's "Viewing as" switch (or `?view=`) rearranges the page for recruiters or for academic readers. Links to a section the current view hides switch back to "Everyone" automatically.
+- **Ask about my work** (`lib/search.ts`): a BM25 retrieval engine over the site's own content, built in the browser. It quotes the best sentence and cites the source, and refuses when nothing scores above the threshold. Deep link: `/?ask=kafka#ask`.
 - **30-second view** for recruiters: navbar button, command palette, or send a link ending in `#30s`.
 - **Explorer achievements** (`lib/achievements.ts`): ten badges stored in the visitor's localStorage, with a counter in the navbar.
 - **Career-as-a-dataset charts** in the data science section are computed from the content files, so they update when the content does. Chart colours are validated for colour-blind separation and contrast in both themes.

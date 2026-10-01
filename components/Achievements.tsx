@@ -18,7 +18,7 @@ export default function Achievements() {
     window.addEventListener("achievement", onAch);
     window.addEventListener("open-achievements", onOpen);
 
-    // "Hello, world" when About is reached
+    // "Hello, world" when About is reached (the first badge most visitors earn)
     const about = document.getElementById("about");
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { achieve("hello"); io.disconnect(); } }, { threshold: 0.3 });
     if (about) io.observe(about);
@@ -35,6 +35,8 @@ export default function Achievements() {
   }, [open]);
 
   const n = got.size, total = ACHIEVEMENTS.length;
+  // Invisible until the first badge is earned, so a fresh visitor never sees an empty "0/10"
+  if (n === 0 && !open) return null;
 
   return (
     <div ref={box} className="relative">

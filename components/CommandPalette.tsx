@@ -6,6 +6,7 @@ import { site } from "@/content/site";
 import { achieve } from "@/lib/achievements";
 import { confetti, copyText, toast, toggleTheme } from "@/lib/fx";
 import { asset } from "@/lib/paths";
+import { setView } from "@/lib/view";
 import { openAchievements } from "./Achievements";
 import { openRecruiter } from "./RecruiterMode";
 
@@ -35,7 +36,12 @@ export default function CommandPalette() {
       { id: "projects", group: "Go to", label: "Projects", run: go("#projects") },
       { id: "systems", group: "Go to", label: "Systems I've built", run: go("#systems") },
       { id: "ds", group: "Go to", label: "Data science: how I work with data", run: go("#data-science") },
-      { id: "words", group: "Go to", label: "What people said", run: go("#words") },
+      { id: "words", group: "Go to", label: "Recommendations", run: go("#words") },
+      { id: "thread", group: "Go to", label: "The thread through my work", run: go("#thread") },
+      { id: "decisions", group: "Go to", label: "Engineering decisions", run: go("#decisions") },
+      { id: "v-rec", group: "View", label: "Arrange for recruiters", run: () => setView("recruiter") },
+      { id: "v-acad", group: "View", label: "Arrange for academics", run: () => setView("academic") },
+      { id: "v-all", group: "View", label: "Show everything", run: () => setView("all") },
       { id: "skills", group: "Go to", label: "Skills", run: go("#skills") },
       { id: "education", group: "Go to", label: "Education & certifications", run: go("#education") },
       { id: "interests", group: "Go to", label: "Research interests", run: go("#interests") },
@@ -43,10 +49,9 @@ export default function CommandPalette() {
       ...projects.map((p) => ({ id: `p-${p.id}`, group: "Projects", label: p.name, hint: p.category, run: go(`#project-${p.id}`) })),
       ...notes.map((n) => ({ id: `n-${n.slug}`, group: "Notes", label: n.title, hint: `${n.readMinutes} min read`, run: () => { window.location.href = asset(`/notes/${n.slug}/`); } })),
       { id: "tldr", group: "Actions", label: "Open the 30-second view", hint: "for recruiters", run: openRecruiter },
-      { id: "ask", group: "Actions", label: "Ask my portfolio a question", hint: "BM25 search", run: () => window.dispatchEvent(new Event("focus-ask")) },
+      { id: "ask", group: "Actions", label: "Ask a question about my work", hint: "search", run: () => window.dispatchEvent(new Event("focus-ask")) },
       { id: "trophies", group: "Actions", label: "Show achievements", run: openAchievements },
       { id: "theme", group: "Actions", label: "Toggle light / dark theme", run: toggleTheme },
-      { id: "confetti", group: "Actions", label: "Celebrate", hint: "why not", run: () => confetti() },
     ];
     if (site.email) list.push({ id: "email", group: "Actions", label: "Copy email address", hint: site.email, run: () => copyText(site.email, `Copied ${site.email}`) });
     if (site.resume) list.push({ id: "resume", group: "Actions", label: "Download resume (PDF)", run: () => {

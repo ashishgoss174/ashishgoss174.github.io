@@ -8,12 +8,12 @@ import Evaluation from "./Evaluation";
 import Section from "./Section";
 
 const suggestions = [
-  "Have you built a RAG system?",
-  "What did you do at Nocturne?",
-  "Which databases have you used?",
-  "Do you know Kafka?",
-  "What is your CGPA?",
-  "What do you want to study next?",
+  "How did Ashish build his RAG system?",
+  "What did he do at FutureVerse?",
+  "What experience does he have with medical AI?",
+  "How does his knowledge graph work?",
+  "Which databases has he used?",
+  "What does he want to study?",
 ];
 
 const link = (href: string) => (href.startsWith("/") ? asset(href) : href);
@@ -74,8 +74,8 @@ export default function AskPortfolio() {
       id="ask"
       eyebrow="live demo"
       hue="accent"
-      title="Ask my portfolio"
-      lede={`A tiny retrieval engine, the idea behind CareCompanion, running in your browser over the ${corpusSize} passages on this site. It ranks passages with BM25, quotes the best sentence and cites where it came from. No LLM, no server: if nothing matches, it says so instead of guessing.`}
+      title="Ask about my work"
+      lede={`Ask a question about my projects, experience or interests. A small retrieval engine, the idea behind CareCompanion, ranks the ${corpusSize} passages on this site with BM25 and quotes the best match with its source. No LLM and no server: if nothing matches, it says so instead of guessing.`}
      
     >
       <div data-reveal className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
@@ -87,7 +87,7 @@ export default function AskPortfolio() {
                 ref={input}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Ask anything about my work…"
+                placeholder="e.g. What did he build at FutureVerse?"
                 aria-label="Ask a question about Ashish's work"
                 className="h-12 w-full bg-transparent text-[1rem] text-ink outline-none placeholder:text-faint"
               />

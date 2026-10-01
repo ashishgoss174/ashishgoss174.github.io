@@ -1,7 +1,6 @@
 "use client";
-import { sectionNumber } from "@/content/sections";
 import { site } from "@/content/site";
-import { confetti, copyText } from "@/lib/fx";
+import { copyText } from "@/lib/fx";
 import { asset } from "@/lib/paths";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./Icons";
 
@@ -19,7 +18,7 @@ export default function Contact() {
           <div className="aurora opacity-80" aria-hidden="true"><span /><span /><span /></div>
           <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
           <div className="relative">
-            <p className="eyebrow mb-4" style={{ ["--h" as string]: "var(--mint)" }}>{sectionNumber("contact")} · the next chapter could be yours</p>
+            <p className="eyebrow mb-4" style={{ ["--h" as string]: "var(--mint)" }}><span className="secnum" aria-hidden="true" /> · the next chapter could be yours</p>
             <h2 id="contact-title" className="text-[2.25rem] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[3.5rem]">
               Let&apos;s build <span className="grad-text">intelligent systems</span> together.
             </h2>
@@ -35,12 +34,6 @@ export default function Contact() {
                 </a>
                 <button type="button" className="btn btn-quiet" onClick={() => copyText(site.email, "Email copied. Talk soon!")}>
                   Copy
-                </button>
-                <button type="button" className="btn btn-quiet" onClick={(e) => {
-                  const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
-                  confetti((r.left + r.width / 2) / window.innerWidth, (r.top + r.height / 2) / window.innerHeight);
-                }} aria-label="Celebrate">
-                  🎉
                 </button>
               </div>
             )}

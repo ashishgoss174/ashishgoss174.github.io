@@ -1,15 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import { site } from "@/content/site";
-import { achieve } from "@/lib/achievements";
-import { confetti, reducedMotion, toast } from "@/lib/fx";
-
-const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+import { reducedMotion } from "@/lib/fx";
 
 /**
- * Site-wide delight, all optional:
+ * Site-wide touches:
  * - [data-glow] elements get a border light that follows the cursor; [data-tilt] ones also lean toward it
- * - the Konami code throws confetti
  * - a note for anyone who opens DevTools
  */
 export default function Extras() {
@@ -35,25 +31,13 @@ export default function Extras() {
     const reset = (el: HTMLElement) => { el.style.setProperty("--rx", "0deg"); el.style.setProperty("--ry", "0deg"); };
     const onLeave = () => { if (active) reset(active); active = null; };
 
-    let seq: string[] = [];
-    const onKey = (e: KeyboardEvent) => {
-      seq = [...seq, e.key.length === 1 ? e.key.toLowerCase() : e.key].slice(-KONAMI.length);
-      if (seq.join() === KONAMI.join()) {
-        seq = [];
-        confetti();
-        toast("↑↑↓↓←→←→BA. You clearly read the details. So do I.", 4500);
-        window.setTimeout(() => achieve("secret"), 1800);
-      }
-    };
-
     document.addEventListener("pointermove", onMove, { passive: true });
     document.addEventListener("pointerleave", onLeave);
-    window.addEventListener("keydown", onKey);
 
     console.log(
       "%c👋 Hey, fellow dev.%c\nYou opened the console, so you're my kind of person.\n\n" +
-        "  › Press Ctrl+K (⌘K) for the command palette\n  › Try the Konami code\n  › Or type: sudo hire ashish\n\n" +
-        `Source-curious? ${site.github}\nSay hi: ${site.email}`,
+        "  › Press Ctrl+K (⌘K) for the command palette\n  › There's one hidden command in it\n\n" +
+        `Source: ${site.github}\nSay hi: ${site.email}`,
       "font: 600 16px system-ui; color: #22d3ee",
       "font: 13px ui-monospace, monospace; color: #a78bfa",
     );
@@ -61,7 +45,6 @@ export default function Extras() {
     return () => {
       document.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerleave", onLeave);
-      window.removeEventListener("keydown", onKey);
     };
   }, []);
 

@@ -116,6 +116,7 @@ export const projects: Project[] = [
     learned: "Joining several speech components into one loop means each stage's output has to be reliable enough for the next to act on.",
     links: [],
     hue: "grape",
+    compact: true,
   },
 ];
 

@@ -46,11 +46,11 @@ for (const d of skillDomains) {
 }
 for (const w of workflow) add(`Data science: ${w.step}`, "Data science", "#data-science", w.hue, w.out);
 // Notes: one passage per section, linking to the note page (a path, not a #hash)
-for (const n of notes) {
+for (const n of notes.filter((x) => x.searchable !== false)) {
   let heading = n.title, buf: string[] = [];
   const flush = () => { if (buf.length) add(`${n.title}: ${heading === n.title ? "intro" : heading}`, "Note", `/notes/${n.slug}/`, "grape", buf.join(" ")); buf = []; };
   for (const b of n.body) {
-    if (b.type === "h2") { flush(); heading = b.text; } else buf.push(b.text);
+    if (b.type === "h2") { flush(); heading = b.text; } else buf.push(b.type === "list" ? b.items.join(" ") : b.text);
   }
   flush();
 }
@@ -62,7 +62,7 @@ const SYN: Record<string, string[]> = {
   ml: ["machine", "learning"], dl: ["deep", "learning"], cv: ["computer", "vision"], kg: ["knowledge", "graph"],
   db: ["database"], database: ["database", "postgresql", "mysql", "mongodb", "redis", "supabase", "neo4j"], gpa: ["cgpa"], grades: ["cgpa"], llm: ["llm", "language", "model"], nlp: ["nlp", "language"],
   ai: ["ai"], ds: ["data", "science"], eda: ["exploratory", "eda"], ocr: ["ocr"], study: ["master", "study"], masters: ["master"],
-  job: ["intern", "role"], work: ["intern", "role"], internship: ["intern"], sql: ["sql"], germany: ["berlin", "germany"],
+  build: ["built", "build"], make: ["built", "build"], job: ["intern", "role"], work: ["intern", "role"], internship: ["intern"], sql: ["sql"], germany: ["berlin", "germany"],
 };
 /** A light stemmer: plurals and common verb endings, careful not to over-strip ("databases" → "database"). */
 const stem = (w: string) => {

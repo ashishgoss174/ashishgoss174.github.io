@@ -3,8 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Extras from "@/components/Extras";
 import NoteTheme from "@/components/NoteTheme";
-import { experience } from "@/content/experience";
 import { noteBySlug, notes } from "@/content/notes";
+import { noteContext } from "@/lib/noteContext";
 import { site } from "@/content/site";
 import { hue } from "@/lib/hue";
 import { asset } from "@/lib/paths";
@@ -28,11 +28,11 @@ const fmtDate = (d: string) => new Date(d + "T00:00:00").toLocaleDateString("en-
 export default async function NotePage({ params }: { params: Promise<{ slug: string }> }) {
   const n = noteBySlug((await params).slug);
   if (!n) notFound();
-  const role = experience.find((r) => r.id === n.about);
-  const h = role?.hue ?? "accent";
+  const ctx = noteContext(n);
+  const others = notes.filter((x) => x.slug !== n.slug).slice(0, 2);
 
   return (
-    <div style={hue(h)}>
+    <div style={hue(ctx.hue)}>
       <header className="sticky z-40 border-b border-line/60 bg-bg/70 backdrop-blur-xl" style={{ top: "env(safe-area-inset-top, 0px)" }}>
         <div className="mx-auto flex h-16 w-full max-w-prose items-center justify-between gap-4 px-5 sm:max-w-[46rem] sm:px-8">
           <Link href="/" className="group flex items-center gap-2.5 font-semibold">
@@ -54,7 +54,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
             <span className="text-ink">{site.name}</span>
             <span>{fmtDate(n.date)}</span>
             <span>{n.readMinutes} min read</span>
-            {role && <span>From my work at {role.company}</span>}
+            {ctx.from && <span>{ctx.from}</span>}
           </div>
 
           <div className="mt-10 space-y-6 text-[1.0625rem] leading-[1.8] text-ink/90">
@@ -66,6 +66,9 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
                   <p className="mt-2 text-[1rem] leading-relaxed">{b.text}</p>
                 </aside>
               );
+              if (b.type === "list") return (
+                <ul key={i} className="list-disc space-y-2 pl-6 marker:text-[rgb(var(--h))]">{b.items.map((t) => <li key={t}>{t}</li>)}</ul>
+              );
               return <p key={i}>{b.text}</p>;
             })}
           </div>
@@ -76,10 +79,26 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
             <p className="font-semibold">Thanks for reading.</p>
             <p className="mt-1 text-muted">I&apos;m {site.name}, an AI engineer and data scientist in {site.location}. This note is one chapter of a longer story.</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Link href={role ? `/#exp-${role.id}` : "/"} className="btn btn-primary">See the work behind this →</Link>
+              <Link href={ctx.href ?? "/"} className="btn btn-primary">{ctx.cta ?? "Back to the portfolio"} →</Link>
               <Link href="/#contact" className="btn btn-quiet">Get in touch</Link>
             </div>
           </div>
+
+          {others.length > 0 && (
+            <nav aria-label="More notes" className="mt-10">
+              <p className="font-mono text-[0.75rem] uppercase tracking-[0.12em] text-faint">Keep reading</p>
+              <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                {others.map((o) => (
+                  <li key={o.slug}>
+                    <Link href={`/notes/${o.slug}/`} className="card block h-full p-4 transition-colors hover:border-line-strong">
+                      <span className="block font-medium">{o.title}</span>
+                      <span className="mt-1 block font-mono text-[0.75rem] text-faint">{o.readMinutes} min read</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
         </article>
       </main>
       <Extras />

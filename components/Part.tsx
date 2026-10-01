@@ -1,16 +1,11 @@
-import { parts, sectionNumber } from "@/content/sections";
-
-const labels: Record<string, string> = {
-  about: "About", numbers: "By the numbers", journey: "Journey", experience: "Experience", words: "In their words",
-  projects: "Projects", systems: "Systems", "data-science": "Data science", ask: "Ask my portfolio", "models-to-systems": "Models to systems",
-  skills: "Skills", education: "Education", interests: "Interests", notes: "Notes", contact: "Contact",
-};
+import { labels, parts } from "@/content/sections";
 
 /** The divider that opens each part of the page, with a clickable table of its sections. */
-export default function Part({ id }: { id: (typeof parts)[number]["id"] }) {
-  const p = parts.find((x) => x.id === id)!;
+export default function Part({ id, sections }: { id: string; sections: string[] }) {
+  const p = parts[id];
+  if (!p) return null;
   return (
-    <div className="relative border-t border-line/60" aria-label={`Part ${p.numeral}: ${p.title}`} role="group">
+    <div className="relative border-t border-line/60" role="group" aria-label={`Part ${p.numeral}: ${p.title}`}>
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-grape/60 to-transparent" />
       <div className="container-page flex flex-col gap-5 pb-2 pt-14 sm:flex-row sm:items-end sm:justify-between sm:pt-20">
         <div className="flex items-end gap-5">
@@ -21,10 +16,8 @@ export default function Part({ id }: { id: (typeof parts)[number]["id"] }) {
           </div>
         </div>
         <ol className="flex flex-wrap gap-x-4 gap-y-1.5 font-mono text-[0.8125rem] text-muted">
-          {p.sections.map((s) => (
-            <li key={s}>
-              <a href={`#${s}`} className="transition-colors hover:text-ink"><span className="text-faint">{sectionNumber(s)}</span> {labels[s]}</a>
-            </li>
+          {sections.map((s) => (
+            <li key={s}><a href={`#${s}`} className="transition-colors hover:text-ink">{labels[s] ?? s}</a></li>
           ))}
         </ol>
       </div>
