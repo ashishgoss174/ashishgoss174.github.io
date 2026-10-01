@@ -1,0 +1,45 @@
+# Optional: deploys the site to GitHub Pages on every push to main.
+# In the repo: Settings > Pages > Source: GitHub Actions.
+# If the site lives at https://<user>.github.io/<repo>/, set NEXT_PUBLIC_BASE_PATH to /<repo> below.
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Set these under Settings > Secrets and variables > Actions > Variables:
+      #   SITE_URL       e.g. https://ashishgossain.dev   (turns on canonical URL, social preview, sitemap)
+      #   CUSTOM_DOMAIN  e.g. ashishgossain.dev           (writes the CNAME file GitHub Pages needs)
+      #   BASE_PATH      e.g. /portfolio, only when there is no custom domain and the repo isn't <user>.github.io
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ vars.BASE_PATH }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
+      - run: touch out/.nojekyll
+      - if: ${{ vars.CUSTOM_DOMAIN != '' }}
+        run: echo "${{ vars.CUSTOM_DOMAIN }}" > out/CNAME
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
