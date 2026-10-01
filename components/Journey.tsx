@@ -117,6 +117,15 @@ export default function Journey() {
                   </div>
                 ))}
               </dl>
+              <h4 className="mt-6 font-mono text-[0.75rem] uppercase tracking-[0.12em] h-text">Questions I want to study</h4>
+              <ul className="mt-3 space-y-2.5">
+                {nextChapter.questions.map((q) => (
+                  <li key={q.area} className="flex gap-3 text-[0.9375rem] leading-snug">
+                    <span aria-hidden="true" className="mt-0.5 font-mono text-[0.75rem] h-text">?</span>
+                    <span><span className="font-medium text-ink">{q.area}.</span> <span className="text-muted">{q.q}</span></span>
+                  </li>
+                ))}
+              </ul>
             </article>
           </li>
         </ol>

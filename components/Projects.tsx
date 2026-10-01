@@ -20,9 +20,9 @@ function ProjectLinks({ p }: { p: Project }) {
     <>
       {write}
       {p.links.map((l) => (
-        <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn-quiet py-2 text-[0.875rem]"
-          aria-label={`${l.label} for ${p.name} (opens in new tab)`}>
-          {l.label === "GitHub" ? <GitHubIcon /> : <ExternalIcon />}
+        <a key={l.href} href={l.href} className="btn btn-quiet py-2 text-[0.875rem]"
+          {...(l.href.startsWith("#") ? {} : { target: "_blank", rel: "noopener noreferrer", "aria-label": `${l.label} for ${p.name} (opens in new tab)` })}>
+          {l.label === "GitHub" ? <GitHubIcon /> : l.href.startsWith("#") ? null : <ExternalIcon />}
           {l.label}
         </a>
       ))}
@@ -145,8 +145,13 @@ export default function Projects() {
       <div className="grid gap-5 md:grid-cols-2">
         {featured.map((p, i) => <Card key={p.id} p={p} n={i} onOpen={() => openProject(p)} />)}
       </div>
-      <div className="mt-5 grid gap-5 md:grid-cols-2">
-        {rest.map((p, i) => <Card key={p.id} p={p} n={featured.length + i} onOpen={() => openProject(p)} />)}
+      <div className={`mt-5 grid gap-5 md:grid-cols-2 ${rest.length === 3 ? "lg:grid-cols-3" : ""}`}>
+        {rest.map((p, i) => (
+          // with an odd count, the last card spans the row on medium screens so nothing is left alone
+          <div key={p.id} className={rest.length % 2 === 1 && i === rest.length - 1 ? "md:col-span-2 lg:col-span-1" : ""}>
+            <Card p={p} n={featured.length + i} onOpen={() => openProject(p)} />
+          </div>
+        ))}
       </div>
       {small.map((p, i) => (
         <div key={p.id} id={`project-${p.id}`} data-reveal style={hue(p.hue)}
@@ -169,8 +174,8 @@ export default function Projects() {
         className="project-dialog"
         aria-labelledby="case-title"
         style={open ? hue(open.hue) : undefined}
-        onClose={() => { setOpen(null); opener.current?.focus(); }}
-        onClick={(e) => { if (e.target === e.currentTarget) setOpen(null); }}
+        onClose={() => { setOpen(null); opener.current?.focus({ preventScroll: true }); }}
+        onClick={(e) => { if (e.target === e.currentTarget || (e.target as Element).closest('a[href^="#"]')) setOpen(null); }}
       >
         {open && (
           <div className="max-h-[calc(100dvh-2rem)] overflow-y-auto">

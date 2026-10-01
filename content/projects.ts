@@ -1,5 +1,5 @@
 import type { Project } from "@/lib/types";
-import { aslFlow, invoiceFlow, jarvisFlow, ragFlow, sqlFlow } from "./flows";
+import { aslFlow, evalFlow, invoiceFlow, jarvisFlow, ragFlow, sqlFlow } from "./flows";
 
 /**
  * Projects, in display order. The first two (featured: true) get the large cards.
@@ -51,6 +51,28 @@ export const projects: Project[] = [
       "Most of a RAG system's behaviour is decided before the model runs: how documents are split, how they're embedded and what gets retrieved. Citing sources makes each answer something a reader can verify.",
     note: "An internship capstone, not a clinical tool.",
     links: [{ label: "GitHub", href: "https://github.com/ashishgoss174/A.I-Medi-Bot-CareCompanion" }],
+    hue: "mint",
+  },
+  {
+    id: "retrieval-evaluation",
+    name: "Retrieval Evaluation",
+    category: "Information retrieval / Evaluation",
+    context: "Personal project, on this site",
+    featured: false,
+    problem: "With CareCompanion I could tell whether retrieved passages looked relevant, but not whether a retrieval method was actually better than a simpler one.",
+    solution:
+      "A small, reproducible evaluation of this site's search: 20 labelled questions, three rankers and standard metrics, recomputed from the site's content on every build, with the failures analysed.",
+    stack: ["TypeScript", "BM25", "Hit@k", "MRR", "Error analysis"],
+    flow: evalFlow,
+    decisions: [
+      "Compare against simpler baselines instead of reporting one system's score on its own: keyword overlap, plain BM25, and BM25 with stemming and synonyms.",
+      "Keep the questions and labels in code (lib/evaluation.ts), so the results are rebuilt on every deploy and anyone can inspect how they were produced.",
+      "Report the result as it came out, including that the simplest ranker scored highest, rather than tuning the synonym list until the fancier model wins on this test set.",
+    ],
+    status: "Live on this site: the results table is under Ask about my work, and the full analysis is in my notes.",
+    learned:
+      "An improvement isn't one until it's measured against a baseline, and twenty questions are far too few to call a winner. The next step is more questions, written by other people, and a significance test.",
+    links: [{ label: "Live results", href: "#ask" }],
     hue: "mint",
   },
   {

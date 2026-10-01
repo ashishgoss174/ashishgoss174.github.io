@@ -62,6 +62,14 @@ export const knowledgeGraphFlow: FlowStep[] = [
   { label: "Concept-level diagnosis", kind: "output", detail: "A wrong answer resolves to the specific concept at fault rather than to a whole chapter." },
 ];
 
+export const evalFlow: FlowStep[] = [
+  { label: "Site content as passages", kind: "input", detail: "Every role, project, chapter, note and skill group on this site becomes a passage to search." },
+  { label: "20 labelled questions", kind: "input", detail: "Questions a visitor might ask, each labelled with the sections that genuinely answer it." },
+  { label: "Three rankers", kind: "retrieval", detail: "Keyword overlap (the baseline), BM25, and BM25 with stemming and synonyms (what the live search uses)." },
+  { label: "Hit@1, Hit@3, MRR", kind: "process", detail: "Is the top result relevant? Is one in the top three? And the mean of 1 / rank of the first relevant result." },
+  { label: "Comparison and error analysis", kind: "output", detail: "Results side by side, plus the individual questions each ranker got wrong and why." },
+];
+
 export const kindLabel: Record<FlowStep["kind"], string> = {
   input: "input",
   process: "processing",

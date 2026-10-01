@@ -131,3 +131,15 @@ export const skillDomains: SkillDomain[] = [
     ],
   },
 ];
+
+/**
+ * The compact tech stack: domains above grouped into five buckets, showing only skills used in real work.
+ * `from` lists domain titles, in display order.
+ */
+export const stackGroups: { title: string; hue: SkillDomain["hue"]; from: string[] }[] = [
+  { title: "AI & LLM", hue: "grape", from: ["LLMs and generative AI"] },
+  { title: "Knowledge representation", hue: "accent", from: ["Knowledge representation"] },
+  { title: "ML & vision", hue: "rose", from: ["Machine learning and vision"] },
+  { title: "Data science", hue: "mint", from: ["Data science and analytics"] },
+  { title: "Data & infrastructure", hue: "sun", from: ["Languages and tools", "Data engineering and databases", "AI systems"] },
+];

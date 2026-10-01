@@ -136,7 +136,7 @@ export const notes: Note[] = [
     date: "2026-10-02",
     readMinutes: 5,
     tags: ["Evaluation", "Information retrieval", "Data science"],
-    about: "",
+    about: "retrieval-evaluation",
     link: { label: "See the live results table", href: "/#ask" },
     searchable: false,
     body: [

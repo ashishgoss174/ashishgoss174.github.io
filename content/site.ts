@@ -9,7 +9,7 @@ export const site = {
   /** The one-line thesis under the title; `highlight` gets the gradient */
   thesis: { lead: "I build AI systems where models meet", highlight: "data, retrieval and structured knowledge." },
   statement:
-    "Computer Science graduate specialising in Data Science & AI, with four internships across medical imaging data, data engineering, retrieval-augmented generation and AI infrastructure. I care about what makes those systems dependable.",
+    "Computer Science graduate specialising in Data Science & AI, with four internships across medical imaging data, data engineering, retrieval-augmented generation and AI infrastructure. My focus: AI systems whose outputs are grounded, constrained and reproducible.",
   email: "ashishgossain174@gmail.com",
   github: "https://github.com/ashishgoss174",
   linkedin: "https://www.linkedin.com/in/ashish-gossain-6ab647245/",

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { skillDomains } from "@/content/skills";
+import { skillDomains, stackGroups } from "@/content/skills";
 import { achieve } from "@/lib/achievements";
 import { evidence } from "@/lib/evidence";
 import { hue } from "@/lib/hue";
@@ -74,13 +74,16 @@ export default function Skills() {
       {!full ? (
         <>
           <ul data-reveal className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-surface/60">
-            {skillDomains.map((d, i) => {
-              const proven = d.skills.filter((s) => s.evidence?.length);
+            {stackGroups.map((g, i) => {
+              // merge the group's domains, keep only skills with evidence, drop duplicates
+              const seen = new Set<string>();
+              const proven = g.from.flatMap((t) => skillDomains.find((d) => d.title === t)?.skills ?? [])
+                .filter((s) => s.evidence?.length && !seen.has(s.name) && seen.add(s.name));
               if (proven.length === 0) return null;
               return (
-                <li key={d.title} style={hue(d.hue)} className="grid gap-3 px-5 py-4 sm:grid-cols-[14rem_1fr] sm:items-baseline sm:gap-6 sm:px-6">
+                <li key={g.title} style={hue(g.hue)} className="grid gap-3 px-5 py-4 sm:grid-cols-[14rem_1fr] sm:items-baseline sm:gap-6 sm:px-6">
                   <h3 id={`skills-${i}`} className="flex items-center gap-2 font-semibold">
-                    <span aria-hidden="true" className="h-2 w-2 rounded-full h-bg" />{d.title}
+                    <span aria-hidden="true" className="h-2 w-2 rounded-full h-bg" />{g.title}
                   </h3>
                   <ul className="flex flex-wrap gap-1.5" aria-labelledby={`skills-${i}`}>
                     {proven.map((s) => <li key={s.name}>{chip(s)}</li>)}

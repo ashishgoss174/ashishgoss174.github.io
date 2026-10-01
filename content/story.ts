@@ -230,4 +230,11 @@ export const nextChapter = {
     { when: "Short term", what: "Applied data scientist or AI engineer, building data-driven AI for healthcare." },
     { when: "Long term", what: "Medical information retrieval and clinical decision support systems." },
   ],
+  /** The questions I want a master's to help me answer */
+  questions: [
+    { area: "Reliable LLM systems", q: "How can retrieval, evaluation and system constraints make LLM applications more reliable?" },
+    { area: "Knowledge-enhanced AI", q: "How can structured knowledge improve retrieval, reasoning and explainability?" },
+    { area: "Medical AI", q: "How can heterogeneous clinical data be turned into reliable inputs for AI systems?" },
+    { area: "AI evaluation", q: "How can we tell genuinely useful retrieval and reasoning apart from fluent but unsupported output?" },
+  ],
 };

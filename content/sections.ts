@@ -6,7 +6,7 @@ import type { View } from "@/lib/view";
  * Every id here must have a matching entry in the `sections` map in app/page.tsx.
  */
 export const labels: Record<string, string> = {
-  about: "About", numbers: "By the numbers", thread: "The thread", journey: "Journey",
+  about: "About", build: "What I build", numbers: "By the numbers", thread: "The thread", journey: "Journey",
   experience: "Experience", projects: "Projects", decisions: "Decisions", systems: "Systems", "models-to-systems": "Models to systems",
   "data-science": "How I work", ask: "Ask about my work", interests: "Research directions", notes: "Writing",
   words: "Recommendations", education: "Academic profile", skills: "Tech stack", contact: "Contact",
@@ -24,16 +24,16 @@ export const views: Record<View, { label: string; blurb: string; order: string[]
     label: "Everyone",
     blurb: "The full story",
     order: [
-      "part:who", "about", "numbers", "thread", "journey",
+      "part:who", "build", "about", "thread", "journey",
       "part:work", "experience", "projects", "decisions", "systems", "models-to-systems",
       "part:mind", "data-science", "ask", "interests", "notes",
-      "part:creds", "words", "education", "skills", "contact",
+      "part:creds", "words", "education", "skills", "numbers", "contact",
     ],
   },
   recruiter: {
     label: "Recruiter",
     blurb: "Work, projects and stack first",
-    order: ["numbers", "experience", "projects", "decisions", "systems", "skills", "words", "education", "contact"],
+    order: ["build", "experience", "projects", "decisions", "systems", "skills", "numbers", "words", "education", "contact"],
   },
   academic: {
     label: "Academic",

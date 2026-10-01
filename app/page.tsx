@@ -17,6 +17,7 @@ import Numbers from "@/components/Numbers";
 import Projects from "@/components/Projects";
 import SectionStack from "@/components/SectionStack";
 import Thread from "@/components/Thread";
+import WhatIBuild from "@/components/WhatIBuild";
 import Decisions from "@/components/Decisions";
 import RecruiterMode from "@/components/RecruiterMode";
 import Reveal from "@/components/Reveal";
@@ -51,13 +52,14 @@ export default function Page() {
         <Hero />
         <SectionStack
           sections={{
+            build: <WhatIBuild />,
             about: <About />,
             numbers: <Numbers />,
             thread: <Thread />,
             journey: <Journey />,
             experience: <Experience />,
             projects: (
-              <Section id="projects" eyebrow="things I built" hue="accent" title="Featured projects" lede="Three flagship pieces of work, then two that show breadth. Each case study covers the problem, the architecture, the decisions that mattered and where it stands now.">
+              <Section id="projects" eyebrow="things I built" hue="accent" title="Featured projects" lede="Two flagship projects, then the work that shows rigour and breadth. Each case study covers the problem, the architecture, the decisions that mattered and where it stands now.">
                 <Projects />
               </Section>
             ),
