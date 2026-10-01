@@ -2,7 +2,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { kindLabel } from "@/content/flows";
 import { systems } from "@/content/systems";
-import { achieve } from "@/lib/achievements";
 import { evidence } from "@/lib/evidence";
 import { reducedMotion } from "@/lib/fx";
 
@@ -28,7 +27,6 @@ export default function SystemExplorer() {
   useEffect(() => {
     if (!playing) return;
     if (step >= s.steps.length - 1) {
-      achieve("operator");
       const t = window.setTimeout(() => setPlaying(false), 1200);
       return () => window.clearTimeout(t);
     }

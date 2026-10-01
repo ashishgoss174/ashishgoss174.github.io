@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { journey, nextChapter, progression } from "@/content/story";
-import { achieve } from "@/lib/achievements";
 import { hue } from "@/lib/hue";
 import Section from "./Section";
 
@@ -23,7 +22,6 @@ export default function Journey() {
       let idx = -1;
       nodes.forEach((n, i) => { if (n.getBoundingClientRect().top < mid) idx = i; });
       setActive(idx);
-      if (idx === nodes.length - 1) achieve("story");
     };
     const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); };
     update();

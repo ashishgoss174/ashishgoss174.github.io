@@ -97,9 +97,8 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` once you have
 - **Audience views:** the hero's "Viewing as" switch (or `?view=`) rearranges the page for recruiters or for academic readers. Links to a section the current view hides switch back to "Everyone" automatically.
 - **Ask about my work** (`lib/search.ts`): a BM25 retrieval engine over the site's own content, built in the browser. It quotes the best sentence and cites the source, and refuses when nothing scores above the threshold. Deep link: `/?ask=kafka#ask`.
 - **30-second view** for recruiters: navbar button, command palette, or send a link ending in `#30s`.
-- **Explorer achievements** (`lib/achievements.ts`): ten badges stored in the visitor's localStorage, with a counter in the navbar.
 - **Career-as-a-dataset charts** in the data science section are computed from the content files, so they update when the content does. Chart colours are validated for colour-blind separation and contrast in both themes.
-- Surprises: Ctrl/⌘ + K (or `/`) opens a command palette; typing `sudo hire ashish` in it, or the Konami code anywhere, throws confetti; there is a note for anyone who opens the browser console.
+- Surprises: Ctrl/⌘ + K (or `/`) opens a command palette; typing `sudo hire ashish` in it throws confetti; there is a note for anyone who opens the browser console.
 - All motion switches off when the visitor's system asks for reduced motion, and content stays visible if JavaScript is disabled. No animation libraries: everything is CSS and a few small hooks.
 - No skill bars or percentages. Skills link to the work that used them instead.
 

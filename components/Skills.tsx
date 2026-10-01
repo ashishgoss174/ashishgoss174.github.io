@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { skillDomains, stackGroups } from "@/content/skills";
-import { achieve } from "@/lib/achievements";
 import { evidence } from "@/lib/evidence";
 import { hue } from "@/lib/hue";
 import type { Skill } from "@/lib/types";
@@ -22,7 +21,6 @@ export default function Skills() {
       setQ((e as CustomEvent<string>).detail);
       setFull(true);
       document.getElementById("skills")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      achieve("grep");
     };
     window.addEventListener("skill-search", on);
     return () => window.removeEventListener("skill-search", on);
@@ -103,7 +101,7 @@ export default function Skills() {
               <span className="shrink-0 whitespace-nowrap font-mono text-[0.875rem] text-mint" aria-hidden="true">filter</span>
               <input
                 value={q}
-                onChange={(e) => { setQ(e.target.value); if (e.target.value.trim().length > 1) achieve("grep"); }}
+                onChange={(e) => { setQ(e.target.value); }}
                 placeholder="python, rag, sql…"
                 aria-label="Filter skills"
                 className="h-11 w-full bg-transparent font-mono text-[0.875rem] text-ink outline-none placeholder:text-faint"

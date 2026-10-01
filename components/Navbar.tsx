@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { currentTheme, toggleTheme, type Theme } from "@/lib/fx";
-import Achievements from "./Achievements";
 import { openPalette } from "./CommandPalette";
 import { openRecruiter } from "./RecruiterMode";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "./Icons";
@@ -114,7 +113,6 @@ export default function Navbar({ name }: { name: string }) {
           >
             <span aria-hidden="true">⏱</span> 30s view
           </button>
-          <Achievements />
           <button
             type="button"
             onClick={openPalette}

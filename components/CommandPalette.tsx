@@ -3,11 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { notes } from "@/content/notes";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
-import { achieve } from "@/lib/achievements";
 import { confetti, copyText, toast, toggleTheme } from "@/lib/fx";
 import { asset } from "@/lib/paths";
 import { setView } from "@/lib/view";
-import { openAchievements } from "./Achievements";
 import { openRecruiter } from "./RecruiterMode";
 
 type Cmd = { id: string; group: string; label: string; hint?: string; run: () => void; secret?: boolean };
@@ -50,7 +48,6 @@ export default function CommandPalette() {
       ...notes.map((n) => ({ id: `n-${n.slug}`, group: "Notes", label: n.title, hint: `${n.readMinutes} min read`, run: () => { window.location.href = asset(`/notes/${n.slug}/`); } })),
       { id: "tldr", group: "Actions", label: "Open the 30-second view", hint: "for recruiters", run: openRecruiter },
       { id: "ask", group: "Actions", label: "Ask a question about my work", hint: "search", run: () => window.dispatchEvent(new Event("focus-ask")) },
-      { id: "trophies", group: "Actions", label: "Show achievements", run: openAchievements },
       { id: "theme", group: "Actions", label: "Toggle light / dark theme", run: toggleTheme },
     ];
     if (site.email) list.push({ id: "email", group: "Actions", label: "Copy email address", hint: site.email, run: () => copyText(site.email, `Copied ${site.email}`) });
@@ -63,7 +60,7 @@ export default function CommandPalette() {
       id: "hire", group: "Secret", label: "sudo hire ashish", secret: true,
       run: () => {
         confetti(); toast("Permission granted ✔ Let's talk: " + site.email, 5000);
-        window.setTimeout(go("#contact"), 400); window.setTimeout(() => achieve("secret"), 2500);
+        window.setTimeout(go("#contact"), 400);
       },
     });
     return list;
@@ -92,7 +89,6 @@ export default function CommandPalette() {
 
   useEffect(() => {
     if (isOpen) {
-      achieve("power");
       opener.current = document.activeElement as HTMLElement;
       setQ(""); setI(0);
       requestAnimationFrame(() => input.current?.focus());

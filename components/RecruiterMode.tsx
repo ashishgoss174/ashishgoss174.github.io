@@ -4,7 +4,6 @@ import { education } from "@/content/education";
 import { experience } from "@/content/experience";
 import { recruiter, site } from "@/content/site";
 import { skillDomains } from "@/content/skills";
-import { achieve } from "@/lib/achievements";
 import { copyText } from "@/lib/fx";
 import { hue } from "@/lib/hue";
 import { asset } from "@/lib/paths";
@@ -32,7 +31,7 @@ export default function RecruiterMode() {
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
-    if (open && !d.open) { d.showModal(); setRun((n) => n + 1); achieve("speed"); }
+    if (open && !d.open) { d.showModal(); setRun((n) => n + 1); }
     if (!open && d.open) d.close();
   }, [open]);
 

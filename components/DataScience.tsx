@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { workflow } from "@/content/datascience";
-import { achieve } from "@/lib/achievements";
 import { evidence } from "@/lib/evidence";
 import { hue } from "@/lib/hue";
 import Section from "./Section";
@@ -34,7 +33,7 @@ function Notebook() {
     workflow.forEach((_, i) => window.setTimeout(() => {
       setRunning(i);
       setOpen((s) => new Set(s).add(i));
-      if (i === workflow.length - 1) window.setTimeout(() => { setRunning(null); achieve("analyst"); }, 600);
+      if (i === workflow.length - 1) window.setTimeout(() => setRunning(null), 600);
     }, 450 * i));
   };
 

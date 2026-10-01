@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { achieve } from "@/lib/achievements";
 import { asset } from "@/lib/paths";
 import { hue } from "@/lib/hue";
 import { ask, corpusSize, tokenize, type Result } from "@/lib/search";
@@ -57,7 +56,6 @@ export default function AskPortfolio() {
     if (!s) { setRes(null); return; }
     setQ(s);
     setRes(ask(s));
-    achieve("curious");
   };
 
   // Allow deep links such as /?ask=kafka#ask, and focusing from the command palette

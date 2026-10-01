@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { notes } from "@/content/notes";
 import { projects } from "@/content/projects";
-import { achieve } from "@/lib/achievements";
 import { hue } from "@/lib/hue";
 import type { Project } from "@/lib/types";
 import FlowList from "./FlowList";
@@ -137,7 +136,6 @@ export default function Projects() {
   const openProject = (p: Project) => {
     opener.current = document.activeElement as HTMLElement;
     setOpen(p);
-    achieve("reader");
   };
 
   return (
